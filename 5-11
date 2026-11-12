@@ -1,1 +1,50 @@
+import time
+start_time = time.time()
 
+p = 18922870297
+F = GF(p)
+E = EllipticCurve(F, [0, 0, 0, 0, -7])
+P = E(2, -1)
+Q = E(2757291037, 12673616556)
+
+# Ερωτηση 1
+xP = F(2)
+yP = F(-1)
+Check_P = (yP^2 == xP^3 - 7)
+
+xQ = F(2757291037)
+yQ = F(12673616556)
+Check_Q = (yQ^2 == xQ^3 - 7)
+print("\nΕρωτηση 1\n")
+print("Το P ειναι κομματι της ελλιπτικης; ", Check_P)
+print("Το Q ειναι κομματι της ελλιπτικης; ", Check_Q)
+print("Timer: ",time.time() - start_time)
+
+
+#Ερωτηση 2
+L1 = {}
+
+A = ceil(sqrt(p)) + 1
+AP = A * P
+
+for i in range(0, A + 1):
+    L1[AP * i] = i
+
+
+for j in range(0, A + 1):
+    point = Q - j * P
+    if point in L1:
+        found = True
+        i = L1[point]
+        k = A * i + j
+        break
+print("\nΕρωτηση 2\n")
+print("k = ", k)
+print("Timer: ",time.time() - start_time)
+
+#Ερωτηση 3
+print("\nΕρωτηση 3\n")
+kP = k * P
+print("k*P =", kP)
+print("Επαλήθευση (k*P == Q):", kP == Q)
+print("Timer: ", time.time() - start_time)
